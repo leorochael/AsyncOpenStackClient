@@ -40,7 +40,7 @@ class Client:
         return api_url
 
     async def get_current_version_api_url(self, url):
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(verify_ssl=False) as session:
             async with session.get(url) as response:
                 versions = await response.json()
                 return [version["links"][0]["href"] for version in versions["versions"] if version["status"] == "CURRENT"][0]
